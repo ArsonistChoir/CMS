@@ -36,17 +36,13 @@
   
   N/A
   
-  ## Test
-  
-  Refer to usage
-  
   ## Links
   
-  Add links here
+  https://github.com/ArsonistChoir/CMS
   
   ## Github
   
-  Add link here
+  https://github.com/ArsonistChoir/
   
   ## License
   
