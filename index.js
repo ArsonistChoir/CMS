@@ -77,8 +77,23 @@ function menu () {
   };
 
   function addDepartment () {
-    console.log('Add department');
-    menu()
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is the department id?'
+      },
+      {
+        type: 'input',
+        name: 'departmentName',
+        message: 'What is the department name?'
+      }
+    ])
+    .then((answers) => {
+      const newDepartment = createDepartment(answers)
+    })
+    // menu()
   };
 
   function addRole () {
@@ -97,3 +112,9 @@ function menu () {
   };
 
 menu()
+
+//This is the unfinished bit, doesn't return departmentName and I don't know why
+function createDepartment (id, departmentName) {
+console.log(`Make department ${departmentName}`);
+}
+
