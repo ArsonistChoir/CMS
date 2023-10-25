@@ -57,12 +57,22 @@ function menu () {
   };
 
   function getRoles () {
-    console.log('show all roles');
+    db.query('SELECT * FROM role', function (err, results) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(results);
+    });
     menu()
   };
 
   function getEmployees () {
-    console.log('show all employees');
+    db.query('SELECT * FROM employee', function (err, results) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(results);
+    });
     menu()
   };
 
