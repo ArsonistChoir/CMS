@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2')
 function menu () {
     inquirer 
     .prompt(
