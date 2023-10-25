@@ -9,10 +9,10 @@ department VARCHAR(30) NOT NULL,
 PRIMARY KEY (id)
 );
 
-CREATE TABLE role (
+CREATE TABLE `role` (
 id INT NOT NULL,
 title VARCHAR(30) NOT NULL,
-salary DECIMAL NOT NULL,
+salary INT NOT NULL,
 department_id INT,
 PRIMARY KEY (id),
 FOREIGN KEY (department_id)
@@ -26,6 +26,6 @@ first_name VARCHAR(30) NOT NULL,
 last_name VARCHAR(30) NOT NULL,
 role_id INT,
 manager_id INT NOT NULL,
-FOREIGN KEY (id)
+FOREIGN KEY (role_id)
 REFERENCES `role`(id)
 );
