@@ -1,5 +1,16 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2')
+
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'business_db'
+  },
+  console.log(`Connected to the business_db database.`)
+);
+
 function menu () {
     inquirer 
     .prompt(
@@ -18,16 +29,30 @@ function menu () {
           getRoles()
       }else if (answers.home === 'view all employees') {
           getEmployees()
+      }else if (answers.home === 'add a department') {
+          addDepartment()
+      }else if (answers.home === 'add a role') {
+          addRole()
+      }else if (answers.home === 'add an employee') {
+          addEmployee()
+      }else if (answers.home === 'update an employee role') {
+          updateEmployee()
       }else {
         console.log('finish program');
       }
     })
-}
+};
 
 
 
   function getDepartments () {
-    console.log('show all departments');
+    db.query('SELECT * FROM departments', function (err, results) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(results);
+    });
+
     menu()
   };
 
@@ -39,6 +64,26 @@ function menu () {
   function getEmployees () {
     console.log('show all employees');
     menu()
-  }
+  };
+
+  function addDepartment () {
+    console.log('Add department');
+    menu()
+  };
+
+  function addRole () {
+    console.log('Add role');
+    menu()
+  };
+
+  function addEmployee () {
+    console.log('Add employee');
+    menu()
+  };
+
+  function updateEmployee () {
+    console.log('Update employee');
+    menu()
+  };
 
 menu()
