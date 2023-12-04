@@ -113,8 +113,31 @@ function menu () {
 
 menu()
 
-//This is the unfinished bit, doesn't return departmentName and I don't know why
-function createDepartment (id, departmentName) {
-console.log(`Make department ${departmentName}`);
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is the department id?',
+        validate: function (value) {
+          const valid = !isNaN(value);
+          return valid || 'Please enter a number';
+        },
+      },
+      {
+        type: 'input',
+        name: 'departmentName',
+        message: 'What is the department name?',
+        validate: function (value) {
+          return value !== '' || 'Please enter a department name';
+        },
+      },
+    ])
+    .then((answers) => {
+      const { id, departmentName } = answers;
+      createDepartment(id, departmentName);
+      menu();
+    });
 }
 
