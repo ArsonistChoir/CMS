@@ -137,11 +137,25 @@ function menu () {
       ])
       .then((answers) => {
         const { id, title, salary, departmentId } = answers;
-        createRole(id, title, salary, departmentId);
-        menu(); 
+  
+        // Insert the new role directly into the database
+        db.query(
+          'INSERT INTO role (id, title, salary, department_id) VALUES (?, ?, ?, ?)',
+          [id, title, salary, departmentId],
+          function (err, results) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`Role ${title} added successfully!`);
+            }
+  
+            menu(); // Return to the main menu after adding a role
+          }
+        );
       });
   }
 
+  
   function addEmployee () {
     console.log('Add employee');
     menu()
