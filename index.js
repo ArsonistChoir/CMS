@@ -53,7 +53,7 @@ function menu () {
       console.log(results);
     });
 
-    menu()
+    menu();
   };
 
   function getRoles () {
@@ -63,7 +63,7 @@ function menu () {
       }
       console.log(results);
     });
-    menu()
+    menu();
   };
 
   function getEmployees () {
@@ -73,7 +73,7 @@ function menu () {
       }
       console.log(results);
     });
-    menu()
+    menu();
   };
 
   function addDepartment () {
@@ -96,10 +96,51 @@ function menu () {
     // menu()
   };
 
-  function addRole () {
-    console.log('Add role');
-    menu()
-  };
+  function addRole() {
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'id',
+          message: 'What is the roles id?',
+          validate: function (value) {
+            const valid = !isNaN(value);
+            return valid || 'Enter a number';
+          },
+        },
+        {
+          type: 'input',
+          name: 'title',
+          message: 'What is the roles title?',
+          validate: function (value) {
+            return value !== '' || 'Enter a title';
+          },
+        },
+        {
+          type: 'input',
+          name: 'salary',
+          message: 'What is the salary?',
+          validate: function (value) {
+            const valid = !isNaN(value);
+            return valid || 'Please enter a salary';
+          },
+        },
+        {
+          type: 'input',
+          name: 'departmentId',
+          message: 'What is the department id for the role?',
+          validate: function (value) {
+            const valid = !isNaN(value);
+            return valid || 'Enter a number';
+          },
+        },
+      ])
+      .then((answers) => {
+        const { id, title, salary, departmentId } = answers;
+        createRole(id, title, salary, departmentId);
+        menu(); 
+      });
+  }
 
   function addEmployee () {
     console.log('Add employee');
