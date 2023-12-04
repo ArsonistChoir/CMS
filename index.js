@@ -251,8 +251,20 @@ function addDepartment() {
     ])
     .then((answers) => {
       const { id, departmentName } = answers;
-      createDepartment(id, departmentName);
-      menu();
+
+      // Insert the new department directly into the database
+      db.query(
+        'INSERT INTO departments (id, department) VALUES (?, ?)',
+        [id, departmentName],
+        function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(`Department ${departmentName} added successfully!`);
+          }
+
+          menu(); // Return to the main menu after adding a department
+        }
+      );
     });
 }
-
