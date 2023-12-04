@@ -105,7 +105,7 @@ function menu () {
           message: 'What is the roles id?',
           validate: function (value) {
             const valid = !isNaN(value);
-            return valid || 'Enter a number';
+            return valid || 'Enter the roles id as a number';
           },
         },
         {
@@ -113,7 +113,7 @@ function menu () {
           name: 'title',
           message: 'What is the roles title?',
           validate: function (value) {
-            return value !== '' || 'Enter a title';
+            return value !== '' || 'Enter the title';
           },
         },
         {
@@ -122,7 +122,7 @@ function menu () {
           message: 'What is the salary?',
           validate: function (value) {
             const valid = !isNaN(value);
-            return valid || 'Please enter a salary';
+            return valid || 'Enter the salary';
           },
         },
         {
@@ -131,14 +131,13 @@ function menu () {
           message: 'What is the department id for the role?',
           validate: function (value) {
             const valid = !isNaN(value);
-            return valid || 'Enter a number';
+            return valid || 'Enter the id';
           },
         },
       ])
       .then((answers) => {
         const { id, title, salary, departmentId } = answers;
-  
-        // Insert the new role directly into the database
+
         db.query(
           'INSERT INTO role (id, title, salary, department_id) VALUES (?, ?, ?, ?)',
           [id, title, salary, departmentId],
@@ -149,17 +148,78 @@ function menu () {
               console.log(`Role ${title} added successfully!`);
             }
   
-            menu(); // Return to the main menu after adding a role
+            menu();
           }
         );
       });
   }
 
-  
-  function addEmployee () {
-    console.log('Add employee');
-    menu()
-  };
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is the employees id?',
+        validate: function (value) {
+          const valid = !isNaN(value);
+          return valid || 'Enter the id';
+        },
+      },
+      {
+        type: 'input',
+        name: 'firstName',
+        message: 'What is the employees first name?',
+        validate: function (value) {
+          return value !== '' || 'Enter the first name';
+        },
+      },
+      {
+        type: 'input',
+        name: 'lastName',
+        message: 'What is the employees last name?',
+        validate: function (value) {
+          return value !== '' || 'Enter the last name';
+        },
+      },
+      {
+        type: 'input',
+        name: 'roleId',
+        message: 'What is the role id for the employee?',
+        validate: function (value) {
+          const valid = !isNaN(value);
+          return valid || 'Enter the id';
+        },
+      },
+      {
+        type: 'input',
+        name: 'managerId',
+        message: 'Who is the manager for the employee?',
+        validate: function (value) {
+          const valid = !isNaN(value);
+          return valid || 'Enter the managers number';
+        },
+      },
+    ])
+    .then((answers) => {
+      const { id, firstName, lastName, roleId, managerId } = answers;
+
+      db.query(
+        'INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?, ?)',
+        [id, firstName, lastName, roleId, managerId],
+        function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(`Employee ${firstName} ${lastName} added successfully!`);
+          }
+
+          menu();
+        }
+      );
+    });
+}
 
   function updateEmployee () {
     console.log('Update employee');
@@ -174,18 +234,18 @@ function addDepartment() {
       {
         type: 'input',
         name: 'id',
-        message: 'What is the department id?',
+        message: 'What is the departments id?',
         validate: function (value) {
           const valid = !isNaN(value);
-          return valid || 'Please enter a number';
+          return valid || 'Enter the departments id';
         },
       },
       {
         type: 'input',
         name: 'departmentName',
-        message: 'What is the department name?',
+        message: 'What is the departments name?',
         validate: function (value) {
-          return value !== '' || 'Please enter a department name';
+          return value !== '' || 'Enter the departments name';
         },
       },
     ])
